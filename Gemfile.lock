@@ -171,6 +171,8 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
+    shoulda-matchers (5.0.0)
+      activesupport (>= 5.2.0)
     strscan (3.0.3)
     thor (1.2.1)
     timeout (0.2.0)
@@ -194,6 +196,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 7.0.2, >= 7.0.2.3)
   rspec-rails
+  shoulda-matchers (~> 5.0)
   tzinfo-data
 
 RUBY VERSION
