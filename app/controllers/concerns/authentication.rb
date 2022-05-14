@@ -14,10 +14,16 @@ module Authentication
 
     head :unauthorized unless valid
 
-    @token ||= result
+    authenticate(result)
   end
 
   private
+
+  def authenticate(result)
+    authenticated_user = User.find_or_create_by(auth_id: result['sub'])
+
+    Current.user = authenticated_user
+  end
 
   def verify(token)
     payload, = JsonWebToken.verify(token)

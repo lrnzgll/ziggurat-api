@@ -26,16 +26,15 @@ class JsonWebToken
     end
 
     def jwks_hash
-      jwks_raw = Rails.cache.fetch("#{issuer}.wedd-known/jwks.json", expires_in: 1.hour) do
-        Net::HTTP.get URI("#{issuer}.well-known/jwks.json")
+      Rails.cache.fetch("#{issuer}-jwks_hash", expires_in: 1.hour) do
+        jwks_keys = Array(JSON.parse(Net::HTTP.get URI("#{issuer}.well-known/jwks.json"))['keys'])
+        jwks_keys.map do |k|
+          [
+            k['kid'],
+            OpenSSL::X509::Certificate.new(Base64.decode64(k['x5c'].first)).public_key
+          ]
+        end.to_h
       end
-      jwks_keys = Array(JSON.parse(jwks_raw)['keys'])
-      jwks_keys.map do |k|
-        [
-          k['kid'],
-          OpenSSL::X509::Certificate.new(Base64.decode64(k['x5c'].first)).public_key
-        ]
-      end.to_h
     end
 
     def issuer
