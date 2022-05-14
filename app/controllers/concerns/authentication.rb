@@ -12,7 +12,7 @@ module Authentication
   def authorize!
     valid, result = verify(raw_token(request.headers))
 
-    head :unauthorized unless valid
+    return head :unauthorized unless valid
 
     authenticate(result)
   end
