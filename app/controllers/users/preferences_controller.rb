@@ -2,14 +2,11 @@
 
 module Users
   class PreferencesController < ApplicationController
-    def new
+    def show
+      render json: Current.user.preferences.to_json
     end
 
-    def create
-    end
-
-    def current
-      render json: Current.user.auth_id.to_json
+    def update
     end
   end
 end
