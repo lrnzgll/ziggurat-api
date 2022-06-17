@@ -13,8 +13,8 @@ class JsonWebToken
                  verify_iss: true,
                  aud: Rails.application.credentials[Rails.env.to_sym][:audience],
                  verify_aud: true) do |header|
-                  key(header)
-      end
+                   key(header)
+                 end
     end
 
     def algorithm
@@ -38,7 +38,7 @@ class JsonWebToken
     end
 
     def issuer
-      "#{Rails.application.credentials[Rails.env.to_sym][:issuerUri]}"
+      Rails.application.credentials[Rails.env.to_sym][:issuerUri].to_s
     end
   end
 end
