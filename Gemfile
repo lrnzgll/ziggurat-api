@@ -11,7 +11,7 @@ gem 'jwt'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
-gem 'ziggurat-expressions', path: '../ziggurat-expressions'
+# gem 'ziggurat-expressions', path: '../ziggurat-expressions'
 #
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
