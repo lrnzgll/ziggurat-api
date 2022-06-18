@@ -6,7 +6,6 @@ module Users
       render json: Current.user.preferences.to_json
     end
 
-    def update
-    end
+    def update; end
   end
 end

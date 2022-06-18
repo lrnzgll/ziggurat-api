@@ -4,4 +4,4 @@ class UserPreference < ApplicationRecord
   belongs_to :user
 
   validates :periodicity, presence: true
- end
+end

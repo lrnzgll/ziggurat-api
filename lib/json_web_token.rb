@@ -27,7 +27,7 @@ class JsonWebToken
 
     def jwks_hash
       Rails.cache.fetch("#{issuer}-jwks_hash", expires_in: 1.hour) do
-        jwks_keys = Array(JSON.parse(Net::HTTP.get URI("#{issuer}.well-known/jwks.json"))['keys'])
+        jwks_keys = Array(JSON.parse(Net::HTTP.get(URI("#{issuer}.well-known/jwks.json")))['keys'])
         jwks_keys.map do |k|
           [
             k['kid'],

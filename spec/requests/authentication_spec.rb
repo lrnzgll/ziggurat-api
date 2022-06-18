@@ -23,7 +23,7 @@ RSpec.describe 'Authentication' do
       it 'returns 401 :unauthorized and JWT error' do
         get root_path, headers: { 'Authorization' => "bearer #{jwt}" }
 
-        expect{ JsonWebToken.verify(jwt) }.to raise_error(JWT::InvalidIssuerError)
+        expect { JsonWebToken.verify(jwt) }.to raise_error(JWT::InvalidIssuerError)
 
         expect(response).to have_http_status(401)
       end
@@ -35,7 +35,7 @@ RSpec.describe 'Authentication' do
       it 'returns 401 :unauthorized and JWT error' do
         get root_path, headers: { 'Authorization' => "bearer #{jwt}" }
 
-        expect{ JsonWebToken.verify(jwt) }.to raise_error(JWT::InvalidAudError)
+        expect { JsonWebToken.verify(jwt) }.to raise_error(JWT::InvalidAudError)
 
         expect(response).to have_http_status(401)
       end
@@ -47,7 +47,7 @@ RSpec.describe 'Authentication' do
       it 'returns 401 :unauthorized and JWT error' do
         get root_path, headers: { 'Authorization' => "bearer #{jwt}" }
 
-        expect{ JsonWebToken.verify(jwt) }.to raise_error(JWT::ExpiredSignature)
+        expect { JsonWebToken.verify(jwt) }.to raise_error(JWT::ExpiredSignature)
 
         expect(response).to have_http_status(401)
       end
@@ -59,7 +59,7 @@ RSpec.describe 'Authentication' do
       it 'returns 401 :unauthorized and JWT error' do
         get root_path, headers: { 'Authorization' => "bearer #{jwt}" }
 
-        expect{ JsonWebToken.verify(jwt) }.to raise_error(JWT::ImmatureSignature)
+        expect { JsonWebToken.verify(jwt) }.to raise_error(JWT::ImmatureSignature)
 
         expect(response).to have_http_status(401)
       end
@@ -70,7 +70,6 @@ RSpec.describe 'Authentication' do
 
       it 'returns 200' do
         get root_path, headers: { 'Authorization' => "bearer #{jwt}" }
-
 
         expect(response).to have_http_status(200)
       end
@@ -84,7 +83,7 @@ RSpec.describe 'Authentication' do
   def invalid_issuer_payload
     { data: 'data',
       exp: Time.now.to_i + 4 * 3600,
-      nbf: Time.now.to_i - 10000,
+      nbf: Time.now.to_i - 10_000,
       aud: Rails.application.credentials[Rails.env.to_sym][:audience],
       iss: 'WRONG' }
   end
@@ -92,15 +91,15 @@ RSpec.describe 'Authentication' do
   def invalid_audience_payload
     { data: 'data',
       exp: Time.now.to_i + 4 * 3600,
-      nbf: Time.now.to_i - 10000,
+      nbf: Time.now.to_i - 10_000,
       aud: 'WRONG',
       iss: Rails.application.credentials[Rails.env.to_sym][:issuerUri] }
   end
 
   def expired_signature_payload
     { data: 'data',
-      exp: Time.now.to_i - 10000,
-      nbf: Time.now.to_i - 10000,
+      exp: Time.now.to_i - 10_000,
+      nbf: Time.now.to_i - 10_000,
       aud: Rails.application.credentials[Rails.env.to_sym][:audience],
       iss: Rails.application.credentials[Rails.env.to_sym][:issuerUri] }
   end
@@ -108,7 +107,7 @@ RSpec.describe 'Authentication' do
   def valid_jwt_payload
     { data: 'data',
       exp: Time.now.to_i + 4 * 3600,
-      nbf: Time.now.to_i - 10000,
+      nbf: Time.now.to_i - 10_000,
       aud: Rails.application.credentials[Rails.env.to_sym][:audience],
       iss: Rails.application.credentials[Rails.env.to_sym][:issuerUri] }
   end
@@ -116,9 +115,8 @@ RSpec.describe 'Authentication' do
   def immature_signature_payload
     { data: 'data',
       exp: Time.now.to_i + 4 * 3600,
-      nbf: Time.now.to_i + 10000,
+      nbf: Time.now.to_i + 10_000,
       aud: Rails.application.credentials[Rails.env.to_sym][:audience],
       iss: Rails.application.credentials[Rails.env.to_sym][:issuerUri] }
   end
-
 end
