@@ -84,3 +84,7 @@ production:
   database: ziggurat_api_production
   username: ziggurat_api
   password: <%= ENV["ZIGGURAT_API_DATABASE_PASSWORD"] %>
+
+staging:
+  <<: *default
+  database: ziggurat_api_staging
