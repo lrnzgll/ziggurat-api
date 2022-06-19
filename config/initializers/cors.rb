@@ -9,7 +9,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins Rails.application.credentials[Rails.env.to_sym][:cors] || 'https://majestic-piroshki-605119.netlify.app'
+    origins ["http://localhost:8080", "https://majestic-piroshki-605119.netlify.app"]
 
     resource "*",
              headers: :any,
