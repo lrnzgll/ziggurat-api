@@ -8,6 +8,7 @@ ruby '3.0.0'
 gem 'dalli'
 gem "jbuilder"
 gem 'jwt'
+gem 'noticed'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
