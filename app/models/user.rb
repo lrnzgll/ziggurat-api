@@ -4,6 +4,8 @@ class User < ApplicationRecord
   #  has_one :user_preference, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
 
+  attr_accessor :email, :nickname
+
   after_create_commit :new_user_notification
 
   validates :auth_id, presence: true
