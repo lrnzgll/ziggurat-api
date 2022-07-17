@@ -20,11 +20,12 @@ module Authentication
   private
 
   def authenticate(result)
-    authenticated_user = User.find_or_create_by(auth_id: result['sub'])
+    authenticated_user =
+      User.find_by(auth_id: result['sub']) ||
+      User.create(auth_id: result['sub'], name: result["#{claims}/username"])
 
     Current.user = authenticated_user
     Current.user.email = result["#{claims}/email"]
-    Current.user.nickname = result["#{claims}/nickname"]
   end
 
   def verify(token)
