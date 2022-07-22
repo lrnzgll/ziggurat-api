@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  #  has_one :user_preference, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
+  has_many :user_preferences, dependent: :destroy
 
   attr_accessor :email
 
@@ -12,10 +12,14 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   def preferences
-    user_preference || create_user_preference
+    user_preferences.last || default_user_preferences
   end
 
   private
+
+  def default_user_preferences
+    user_preferences.create(periodicity: 'weekly')
+  end
 
   def new_user_notification
     NewUserNotification.with(user: self).deliver(self)
