@@ -6,8 +6,10 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
+require 'json_web_token'
 require 'rspec/rails'
 require 'support/spec_service_helper'
+require 'support/authentication_helper'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -42,6 +44,11 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
   config.include SpecServiceHelper, type: :service
+  config.include AuthenticationHelper, type: :request
+
+  config.before(:each, type: :request) do
+    allow(JsonWebToken).to receive(:key).and_return(rsa_public)
+  end
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
