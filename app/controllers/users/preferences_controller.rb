@@ -3,9 +3,7 @@
 module Users
   class PreferencesController < ApplicationController
     def show
-      render json: Current.user.preferences.to_json
+      @preferences = Current.user.preferences
     end
-
-    def update; end
   end
 end
