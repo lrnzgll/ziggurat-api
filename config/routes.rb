@@ -7,8 +7,8 @@ Rails.application.routes.draw do
 
   namespace 'users' do
     resource :preferences, only: [:show, :create]
+    resources :notifications, only: :index
   end
 
   resources :expressions
-  resources :notifications
 end
